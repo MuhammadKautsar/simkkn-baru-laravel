@@ -49,40 +49,42 @@ Route::get('/profile', function () {
     return view('account-pages.profile');
 })->name('profile')->middleware('auth');
 
-Route::get('/signin', function () {
-    return view('account-pages.signin');
-})->name('signin');
+// Route::get('/signin', function () {
+//     return view('account-pages.signin');
+// })->name('signin');
 
-Route::get('/signup', function () {
-    return view('account-pages.signup');
-})->name('signup')->middleware('guest');
+// Route::get('/signup', function () {
+//     return view('account-pages.signup');
+// })->name('signup')->middleware('guest');
 
 Route::get('/sign-up', [RegisterController::class, 'create'])
     ->middleware('guest')
     ->name('sign-up');
 
-Route::post('/sign-up', [RegisterController::class, 'store'])
+// Route::post('/sign-up', [RegisterController::class, 'store'])
+//     ->middleware('guest');
+
+Route::get('/tes', [LoginController::class, 'testConnection'])
     ->middleware('guest');
 
-Route::get('/sign-in', [LoginController::class, 'create'])
+Route::get('/sign-in', [LoginController::class, 'index'])
     ->middleware('guest')
     ->name('sign-in');
 
-Route::post('/sign-in', [LoginController::class, 'store'])
+Route::post('/sign-in', [LoginController::class, 'login'])
     ->middleware('guest');
 
-Route::get('panitia/sign-in', [LoginController::class, 'panitia_create'])
+Route::get('panitia/sign-in', [LoginController::class, 'panitia_index'])
     ->middleware('guest')
     ->name('panitia-sign-in');
 
-Route::post('panitia/sign-in', [LoginController::class, 'panitia_store'])
+Route::post('panitia/sign-in', [LoginController::class, 'panitia_login'])
     ->middleware('guest');
 
 Route::post('/logout', [LoginController::class, 'destroy'])
     ->middleware('auth')
     ->name('logout');
 
-// Route::get('/form-isian', [KknController::class, 'index'])->name('formIsian');
 Route::get('/dashboard', [KknController::class, 'index'])->name('dashboard')->middleware('auth');
 Route::get('/kkn/create', [KknController::class, 'create'])->name('kkn.create')->middleware('auth');
 Route::post('/kkn', [KknController::class, 'store'])->name('kkn.store')->middleware('auth');
@@ -104,8 +106,7 @@ Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create']
 Route::post('/reset-password', [ResetPasswordController::class, 'store'])
     ->middleware('guest');
 
-Route::get('/laravel-examples/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
-Route::put('/laravel-examples/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
-// Route::get('/laravel-examples/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');
+Route::get('/user-profile', [ProfileController::class, 'index'])->name('users.profile')->middleware('auth');
+Route::put('/user-profile/update', [ProfileController::class, 'update'])->name('users.update')->middleware('auth');
 
 Route::get('/users-management', [UserController::class, 'index'])->name('users-management')->middleware('auth');

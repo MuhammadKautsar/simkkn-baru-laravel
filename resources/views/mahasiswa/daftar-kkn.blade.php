@@ -28,14 +28,14 @@
 
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="nama_kkn">Nama Kegiatan/Periode KKN:</label>
+                                        <label for="nama_kkn">Nama Mahasiswa:</label>
                                         <input type="text" name="nama_kkn" id="nama_kkn" class="form-control" required>
                                         @error('nama_kkn')
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
                                     <div class="col-6">
-                                        <label for="masa_kegiatan">Masa Kegiatan KKN:</label>
+                                        <label for="masa_kegiatan">NPM:</label>
                                         <input type="text" name="masa_kegiatan" id="masa_kegiatan" class="form-control" required>
                                         @error('masa_kegiatan')
                                             <span class="text-danger text-sm">{{ $message }}</span>

@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'puksi' => [
+            'driver' => 'session',
+            'provider' => 'pwds',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'pwds' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Pwd::class,
         ],
 
         // 'users' => [

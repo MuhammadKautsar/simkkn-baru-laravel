@@ -102,7 +102,13 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <a href="{{ route('daftar') }}" class="btn btn-primary px-3 mb-0">Daftar</a>
+                            </div>
+                        </div>
+                        <div class="card-header border-bottom pb-0">
+                            <div class="pb-3 d-sm-flex align-items-center">
+                                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                    <a href="" class="btn btn-primary px-3 mb-0">Unduh Panduan</a>
+                                </div>
                             </div>
                         </div>
                     </div>

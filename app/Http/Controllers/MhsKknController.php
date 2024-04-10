@@ -16,7 +16,7 @@ class MhsKknController extends Controller
 
     public function create()
     {
-        return view('daftar');
+        return view('mahasiswa.daftar-kkn');
     }
 
     public function store(Request $request)

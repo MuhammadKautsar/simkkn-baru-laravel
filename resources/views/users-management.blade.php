@@ -43,13 +43,13 @@
                                             ID</th>
                                         <th
                                             class="text-left text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
-                                            Name</th>
+                                            Nama</th>
                                         <th
                                             class="text-left text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
-                                            Email</th>
+                                            NIP</th>
                                         <th
                                             class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
-                                            Role</th>
+                                            Level</th>
                                         <th
                                             class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
                                             Creation Date</th>
@@ -62,9 +62,9 @@
                                     @foreach ($users as $user)
                                     <tr>
                                         <td class="align-middle bg-transparent border-bottom">{{ $user->id }}</td>
-                                        <td class="align-middle bg-transparent border-bottom">{{ $user->name }}</td>
-                                        <td class="align-middle bg-transparent border-bottom">{{ $user->email }}</td>
-                                        <td class="align-middle bg-transparent border-bottom"></td>
+                                        <td class="align-middle bg-transparent border-bottom">{{ $user->nama }}</td>
+                                        <td class="align-middle bg-transparent border-bottom">{{ $user->nip }}</td>
+                                        <td class="align-middle bg-transparent border-bottom">{{ $user->level }}</td>
                                         <td class="align-middle bg-transparent border-bottom">{{ $user->created_at }}</td>
                                         <td class="text-center align-middle bg-transparent border-bottom">
                                             <a href="#"><i class="fas fa-user-edit" aria-hidden="true"></i></a>

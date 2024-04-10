@@ -12,7 +12,7 @@ class ProfileController extends Controller
     {
         $user = User::find(Auth::id());
 
-        return view('laravel-examples.user-profile', compact('user'));
+        return view('user-profile', compact('user'));
     }
 
     public function update(Request $request)

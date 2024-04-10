@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\DB;
+
 
 class LoginController extends Controller
 {
@@ -15,7 +17,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function index()
     {
         return view('auth.signin');
     }
@@ -27,25 +29,81 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    // public function login(Request $request)
+    // {
+
+    //     // $credentials = $request->only('nim13', 'pwd');
+
+    //     // if (Auth::attempt($credentials, $rememberMe)) {
+    //     // if (Auth::guard('puksi')->attempt($credentials)) {
+    //     if (Auth::guard('puksi')->attempt(['nim13' => $request->nim13, 'password' => $request->pwd])) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('/beranda');
+    //     }
+
+    //     return back()->withErrors([
+    //         'message' => 'The provided credentials do not match our records.',
+    //     ])->withInput($request->only('nim13'));
+    // }
+
+    // public function login(Request $request)
+    // {
+    //     $credentials = ['nim13' => $request->nim13, 'password' => $request->pwd];
+    //     // dd($credentials); // Tambahkan ini untuk debugging
+
+    //     if (Auth::guard('puksi')->attempt($credentials)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('/beranda');
+    //     }
+
+    //     return back()->withErrors([
+    //         'message' => 'The provided credentials do not match our records.',
+    //     ])->withInput($request->only('nim13'));
+    // }
+
+    // public function login(Request $request)
+    // {
+    //     $credentials = ['nim13' => $request->nim13, 'password' => $request->pwd];
+    //     // dd($credentials); // Tambahkan ini untuk debugging
+
+    //     $customCredentials = ['nim13' => $request->nim13, 'password' => 'passdev'];
+
+    //     if (Auth::guard('puksi')->attempt($credentials) || Auth::guard('puksi')->attempt($customCredentials)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('/beranda');
+    //     }
+
+    //     return back()->withErrors([
+    //         'message' => 'The provided credentials do not match our records.',
+    //     ])->withInput($request->only('nim13'));
+    // }
+
+    public function login(Request $request)
     {
+        DB::connection('puksi')->enableQueryLog();
 
-        $credentials = $request->only('email', 'password');
+        $credentials = ['nim13' => $request->nim13, 'password' => $request->pwd];
 
-        $rememberMe = $request->rememberMe ? true : false;
-
-        if (Auth::attempt($credentials, $rememberMe)) {
+        dd('Sebelum attempt');
+        if (Auth::guard('puksi')->attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->intended('/beranda');
         }
+        dd('Setelah attempt');
+
+        $queries = DB::getQueryLog();
+        dd($queries); // Tampilkan query log setelah proses login
 
         return back()->withErrors([
             'message' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email'));
+        ])->withInput($request->only('nim13'));
     }
 
-    public function panitia_create()
+    public function panitia_index()
     {
         return view('auth.panitia-signin');
     }
@@ -57,22 +115,21 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function panitia_store(Request $request)
+    public function panitia_login(Request $request)
     {
 
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->only('nip', 'password');
 
-        $rememberMe = $request->rememberMe ? true : false;
-
-        if (Auth::attempt($credentials, $rememberMe)) {
+        // if (Auth::attempt($credentials, $rememberMe)) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
             return redirect()->intended('/dashboard');
         }
 
         return back()->withErrors([
-            'message' => 'The provided credentials do not match our records.',
-        ])->withInput($request->only('email'));
+            'message' => 'Kredensial yang dimasukkan tidak sesuai',
+        ])->withInput($request->only('nip'));
     }
 
 
@@ -91,5 +148,15 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function testConnection()
+    {
+        try {
+            DB::connection('puksi')->getPdo();
+            echo "Koneksi ke database kedua berhasil.";
+        } catch (\Exception $e) {
+            die("Tidak dapat terkoneksi ke database kedua: " . $e->getMessage());
+        }
     }
 }

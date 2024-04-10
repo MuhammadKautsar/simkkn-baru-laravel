@@ -43,16 +43,14 @@
                                         </div>
                                         <label>NIP / Kode PTN</label>
                                         <div class="mb-3">
-                                            <input type="email" id="email" name="email" class="form-control"
-                                                placeholder="Enter your email address"
-                                                value="{{ old('email') ? old('email') : 'admin@corporateui.com' }}"
-                                                aria-label="Email" aria-describedby="email-addon">
+                                            <input type="text" id="nip" name="nip" class="form-control"
+                                                placeholder="Masukkan NIP / Kode PTN"
+                                                aria-label="NIP/Kode PTN" aria-describedby="nip-addon">
                                         </div>
                                         <label>Password</label>
                                         <div class="mb-3">
                                             <input type="password" id="password" name="password"
-                                                value="{{ old('password') ? old('password') : 'secret' }}"
-                                                class="form-control" placeholder="Enter password" aria-label="Password"
+                                                class="form-control" placeholder="Masukkan password" aria-label="Password"
                                                 aria-describedby="password-addon">
                                         </div>
                                         <!-- <div class="d-flex align-items-center">

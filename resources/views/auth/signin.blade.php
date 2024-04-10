@@ -43,30 +43,16 @@
                                         </div>
                                         <label>NPM / NIP</label>
                                         <div class="mb-3">
-                                            <input type="email" id="email" name="email" class="form-control"
-                                                placeholder="Enter your email address"
-                                                value="{{ old('email') ? old('email') : 'admin@corporateui.com' }}"
-                                                aria-label="Email" aria-describedby="email-addon">
+                                            <input type="text" id="nim13" name="nim13" class="form-control"
+                                                placeholder="Masukkan NPM / NIP"
+                                                aria-label="NPM" aria-describedby="npm-addon">
                                         </div>
                                         <label>Password</label>
                                         <div class="mb-3">
-                                            <input type="password" id="password" name="password"
-                                                value="{{ old('password') ? old('password') : 'secret' }}"
-                                                class="form-control" placeholder="Enter password" aria-label="Password"
+                                            <input type="password" id="pwd" name="password"
+                                                class="form-control" placeholder="Masukkan password" aria-label="Password"
                                                 aria-describedby="password-addon">
                                         </div>
-                                        <!-- <div class="d-flex align-items-center">
-                                            <div class="form-check form-check-info text-left mb-0">
-                                                <input class="form-check-input" type="checkbox" value=""
-                                                    id="flexCheckDefault">
-                                                <label class="font-weight-normal text-dark mb-0" for="flexCheckDefault">
-                                                    Remember for 14 days
-                                                </label>
-                                            </div>
-                                            <a href="{{ route('password.request') }}"
-                                                class="text-xs font-weight-bold ms-auto">Forgot
-                                                password</a>
-                                        </div> -->
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">Sign in</button>
                                         </div>

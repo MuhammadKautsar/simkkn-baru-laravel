@@ -91,13 +91,13 @@
                     </a>
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
-                        <li>
+                        <!-- <li>
                                 <a class="dropdown-item border-radius-md" href="{{ route('users.profile') }}">
                                     <div class="d-flex py-1">
                                         Profil
                                     </div>
                                 </a>
-                        </li>
+                        </li> -->
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
