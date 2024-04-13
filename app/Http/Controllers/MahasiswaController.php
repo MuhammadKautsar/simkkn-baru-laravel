@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\MhsKkn;
 use App\Models\Kkn;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 
-class MhsKknController extends Controller
+class MahasiswaController extends Controller
 {
     public function index()
     {
-        $kkns = Kkn::all();
+        $kkns = Periode::where('status', '1')->orderBy('id', 'desc')->get();
         return view('beranda', compact('kkns'));
     }
 

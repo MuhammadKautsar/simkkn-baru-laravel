@@ -35,31 +35,26 @@
                                 <table class="table align-items-center justify-content-center mb-0">
                                     <thead class="bg-gray-100">
                                         <tr>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7">Nama KKN</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Masa Kegiatan</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Jenis KKN</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Masa Pendaftaran</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Tahun Ajaran</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Semester</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Kode KKN</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Minimal SKS</th>
-                                            <th class="text-secondary text-xs font-weight-semibold opacity-7 ps-2">Kuota Peserta</th>
-                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7"></th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7">Nama / Periode</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 ps-2">Jenis</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 ps-2">Lokasi</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 ps-2">Masa Kegiatan</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 ps-2">Status</th>
+                                            <th class="text-center text-secondary text-xs font-weight-semibold opacity-7 ps-2">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($kkns as $kkn)
                                         <tr>
-                                            <td class="mb-0 text-sm">{{ $kkn->nama_kkn }}</td>
-                                            <td class="mb-0 text-sm">{{ $kkn->masa_kegiatan }}</td>
+                                            <td class="mb-0 text-sm">{{ $kkn->masa_periode }}</td>
                                             <td class="mb-0 text-sm">{{ $kkn->jenis_kkn }}</td>
-                                            <td class="mb-0 text-sm">{{ $kkn->masa_pendaftaran }}</td>
-                                            <td class="mb-0 text-sm">{{ $kkn->tahun_ajaran }}</td>
-                                            <td class="mb-0 text-sm">{{ $kkn->semester }}</td>
-                                            <td class="mb-0 text-sm">{{ $kkn->kode_kkn }}</td>
-                                            <td class="mb-0 text-sm">{{ $kkn->minimal_sks }}</td>
-                                            <td class="mb-0 text-sm">{{ $kkn->kuota_peserta }}</td>
-                                            <td class="align-middle">
+                                            <td class="mb-0 text-sm">{{ $kkn->lokasi }}</td>
+                                            <td class="mb-0 text-sm">{{ $kkn->ket }}</td>
+                                            {{-- <td class="mb-0 text-sm">{{ $kkn->status }}</td> --}}
+                                            @if($kkn->status === 1)
+                                                <td><span class="badge badge-primary">Aktif</span></td>
+                                            @endif
+                                            <td>
                                                 <a href="{{ route('daftar') }}" class="btn btn-primary px-3 mb-0">Daftar</a>
                                             </td>
                                         </tr>

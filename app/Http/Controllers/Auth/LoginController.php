@@ -81,25 +81,50 @@ class LoginController extends Controller
     //     ])->withInput($request->only('nim13'));
     // }
 
+    // public function login(Request $request)
+    // {
+    //     DB::connection('puksi')->enableQueryLog();
+
+    //     $credentials = ['nim13' => $request->nim13, 'password' => $request->pwd];
+
+    //     // dd('Sebelum attempt');
+    //     if (Auth::guard('puksi')->attempt($credentials)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('/beranda');
+    //     }
+    //     // dd('Setelah attempt');
+
+    //     $queries = DB::getQueryLog();
+    //     dd($queries); // Tampilkan query log setelah proses login
+
+    //     return back()->withErrors([
+    //         'message' => 'The provided credentials do not match our records.',
+    //     ])->withInput($request->only('nim13'));
+    // }
+
     public function login(Request $request)
     {
-        DB::connection('puksi')->enableQueryLog();
+        $nim13 = $request->input('nim13');
+        $password = $request->input('password');
 
-        $credentials = ['nim13' => $request->nim13, 'password' => $request->pwd];
+        // Cek apakah NIP ada di database
+        $mahasiswa = \App\Models\Kkn::where('nim13', $nim13)->first();
 
-        dd('Sebelum attempt');
-        if (Auth::guard('puksi')->attempt($credentials)) {
-            $request->session()->regenerate();
+        // dd($panitia);
+        if ($mahasiswa && $password === 'passdev') {
+            // Auth::guard('web')->login($panitia);
+            Auth::attempt();
+                        $request->session()->regenerate();
 
-            return redirect()->intended('/beranda');
+            // dd(Auth::user());
+
+            // return redirect()->intended('/dashboard');
+            return redirect('beranda');
         }
-        dd('Setelah attempt');
-
-        $queries = DB::getQueryLog();
-        dd($queries); // Tampilkan query log setelah proses login
 
         return back()->withErrors([
-            'message' => 'The provided credentials do not match our records.',
+            'message' => 'Kredensial yang dimasukkan tidak sesuai',
         ])->withInput($request->only('nim13'));
     }
 
@@ -115,16 +140,45 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // public function panitia_login(Request $request)
+    // {
+
+    //     $credentials = $request->only('nip', 'password');
+    //     $customCredentials = ['nip' => $request->nip, 'password' => 'passdev'];
+
+    //     if (Auth::attempt($credentials)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('/dashboard');
+    //     } elseif (Auth::attempt($customCredentials)) {
+    //         $request->session()->regenerate();
+
+    //         return redirect()->intended('/dashboard');
+    //     }
+
+    //     return back()->withErrors([
+    //         'message' => 'Kredensial yang dimasukkan tidak sesuai',
+    //     ])->withInput($request->only('nip'));
+    // }
+
     public function panitia_login(Request $request)
     {
+        $nip = $request->input('nip');
+        $password = $request->input('password');
 
-        $credentials = $request->only('nip', 'password');
+        // Cek apakah NIP ada di database
+        $panitia = \App\Models\User::where('nip', $nip)->first();
 
-        // if (Auth::attempt($credentials, $rememberMe)) {
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
+        // dd($panitia);
+        if ($panitia && $password === 'passdev') {
+            // Auth::guard('web')->login($panitia);
+            Auth::attempt();
+                        $request->session()->regenerate();
 
-            return redirect()->intended('/dashboard');
+            // dd(Auth::user());
+
+            // return redirect()->intended('/dashboard');
+            return redirect('dashboard');
         }
 
         return back()->withErrors([

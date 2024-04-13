@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="mb-5 row justify-content-center">
-                    <div class="col-lg-9 col-12 ">
+                    <div class="col-lg-12 col-12 ">
                         <div class="card " id="basic-info">
                             <div class="card-header">
                                 <h5>Konfigurasi KKN</h5>
@@ -46,7 +46,10 @@
                                 <div class="row p-2">
                                     <label for="jenis_kkn">Jenis KKN</label>
                                     <select type="number" name="jenis_kkn" id="jenis_kkn" placeholder="" class="form-select" required>
-                                            <option value="1">Reguler</option>
+                                        <option disabled selected>- Pilih -</option>
+                                        @foreach ($jenis_kkns as $item)
+                                            <option value="{{ $item->id }}">{{ $item->kategori }}</option>
+                                        @endforeach
                                     </select>
                                     @error('jenis_kkn')
                                         <span class="text-danger text-sm">{{ $message }}</span>
@@ -60,7 +63,6 @@
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                     <div class="col-6">
                                         <label for=""></label>
                                         <input type="text" name="" id="" placeholder="" class="form-control">
@@ -77,7 +79,6 @@
                                             <span class="text-danger text-sm">{{ $message }}</span>
                                         @enderror
                                     </div>
-
                                     <div class="col-6">
                                         <label for="semester">Semester:</label>
                                         <select type="text" name="semester" id="semester" placeholder="" class="form-select" required>

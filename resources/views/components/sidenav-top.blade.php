@@ -180,12 +180,12 @@
                 </a>
             </li>
             <li class="nav-item border-radius-sm px-3 py-3 me-2  d-flex align-items-center">
-                <a href="{{ route('signin') }}" class="nav-link text-white p-0">
+                <a href="" class="nav-link text-white p-0">
                     Sign In
                 </a>
             </li>
             <li class="nav-item border-radius-sm px-3 py-3 me-2  d-flex align-items-center">
-                <a href="{{ route('signup') }}" class="nav-link text-white p-0">
+                <a href="" class="nav-link text-white p-0">
                     Sign Up
                 </a>
             </li>

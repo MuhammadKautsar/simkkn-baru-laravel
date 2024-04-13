@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kkn;
+use App\Models\Periode;
 use App\Models\JenisKkn;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class KknController extends Controller
 {
     public function index()
     {
-        $kkns = Kkn::all();
+        $kkns = Periode::orderBy('id', 'desc')->paginate(10);
         return view('dashboard', compact('kkns'));
     }
 
@@ -22,7 +23,8 @@ class KknController extends Controller
 
     public function create()
     {
-        return view('panitia.kkn-baru');
+        $jenis_kkns = JenisKkn::all();
+        return view('panitia.kkn-baru', compact('jenis_kkns'));
     }
 
     public function store(Request $request)
@@ -30,6 +32,14 @@ class KknController extends Controller
         // Validasi input
         $request->validate([
             'nama_kkn' => 'required|string|max:255',
+            'masa_kegiatan' => 'required|string|max:255',
+            'jenis_kkn' => 'required',
+            'masa_pendaftaran' => 'required|string|max:255',
+            'tahun_ajaran' => 'required|string|max:255',
+            'semester' => 'required|string|max:255',
+            'kode_kkn' => 'required|string|max:255',
+            'minimal_sks' => 'required|numeric',
+            'kuota_peserta' => 'required|numeric',
         ]);
 
         // Simpan data KKN baru
@@ -47,5 +57,21 @@ class KknController extends Controller
 
         // Redirect dengan pesan sukses
         return redirect()->route('dashboard')->with('success', 'KKN baru berhasil ditambahkan.');
+    }
+
+    public function add_jenis_kkn(Request $request)
+    {
+        // Validasi input
+        $request->validate([
+            'kategori' => 'required|string',
+        ]);
+
+        // Simpan data KKN baru
+        $jenis_kkn = new JenisKkn();
+        $jenis_kkn->kategori = $request->kategori;
+        $jenis_kkn->save();
+
+        // Redirect dengan pesan sukses
+        return redirect()->route('jenis.kkn')->with('success', 'Kategori KKN baru berhasil ditambahkan.');
     }
 }
