@@ -31,24 +31,6 @@ class LoginController extends Controller
      */
     // public function login(Request $request)
     // {
-
-    //     // $credentials = $request->only('nim13', 'pwd');
-
-    //     // if (Auth::attempt($credentials, $rememberMe)) {
-    //     // if (Auth::guard('puksi')->attempt($credentials)) {
-    //     if (Auth::guard('puksi')->attempt(['nim13' => $request->nim13, 'password' => $request->pwd])) {
-    //         $request->session()->regenerate();
-
-    //         return redirect()->intended('/beranda');
-    //     }
-
-    //     return back()->withErrors([
-    //         'message' => 'The provided credentials do not match our records.',
-    //     ])->withInput($request->only('nim13'));
-    // }
-
-    // public function login(Request $request)
-    // {
     //     $credentials = ['nim13' => $request->nim13, 'password' => $request->pwd];
     //     // dd($credentials); // Tambahkan ini untuk debugging
 
@@ -83,49 +65,66 @@ class LoginController extends Controller
 
     // public function login(Request $request)
     // {
-    //     DB::connection('puksi')->enableQueryLog();
+    //     $nim13 = $request->input('nim13');
+    //     $password = $request->input('password');
 
-    //     $credentials = ['nim13' => $request->nim13, 'password' => $request->pwd];
+    //     // Cek apakah NIP ada di database
+    //     $mahasiswa = \App\Models\Kkn::where('nim13', $nim13)->first();
 
-    //     // dd('Sebelum attempt');
-    //     if (Auth::guard('puksi')->attempt($credentials)) {
-    //         $request->session()->regenerate();
+    //     // dd($panitia);
+    //     if ($mahasiswa && $password === 'passdev') {
+    //         // Auth::guard('web')->login($panitia);
+    //         Auth::attempt();
+    //                     $request->session()->regenerate();
 
-    //         return redirect()->intended('/beranda');
+    //         // dd(Auth::user());
+
+    //         // return redirect()->intended('/dashboard');
+    //         return redirect('beranda');
     //     }
-    //     // dd('Setelah attempt');
-
-    //     $queries = DB::getQueryLog();
-    //     dd($queries); // Tampilkan query log setelah proses login
 
     //     return back()->withErrors([
-    //         'message' => 'The provided credentials do not match our records.',
+    //         'message' => 'Kredensial yang dimasukkan tidak sesuai',
     //     ])->withInput($request->only('nim13'));
     // }
 
     public function login(Request $request)
     {
-        $nim13 = $request->input('nim13');
+        $level = $request->input('level');
+        $username = $request->input('username');
         $password = $request->input('password');
 
-        // Cek apakah NIP ada di database
-        $mahasiswa = \App\Models\Kkn::where('nim13', $nim13)->first();
+        // Cek apakah level dipilih
+        if (!$level) {
+            return back()->withErrors([
+                'message' => 'Pilih level terlebih dahulu',
+            ])->withInput($request->except('password'));
+        }
 
-        // dd($panitia);
-        if ($mahasiswa && $password === 'passdev') {
-            // Auth::guard('web')->login($panitia);
+        // Cek apakah NIP/NPM ada di database
+        if ($level === 'mahasiswa') {
+            $mahasiswa = \App\Models\Kkn::where('nim13', $username)->first();
+        } elseif ($level === 'dosen') {
+            $dosen = \App\Models\Dosen::where('nip', $username)->first();
+        }
+
+        if (isset($mahasiswa) && $mahasiswa && $password === 'passdev') {
             Auth::attempt();
-                        $request->session()->regenerate();
+            // dd(Auth::guard('puksi')->attempt(['nim13' => $mahasiswa->nim13, "pwd" => $password]));
+            $request->session()->regenerate();
 
-            // dd(Auth::user());
-
-            // return redirect()->intended('/dashboard');
             return redirect('beranda');
+
+        } elseif (isset($dosen) && $dosen && $password === 'passdev') {
+            Auth::attempt();
+            $request->session()->regenerate();
+
+            return redirect('dosen/beranda');
         }
 
         return back()->withErrors([
             'message' => 'Kredensial yang dimasukkan tidak sesuai',
-        ])->withInput($request->only('nim13'));
+        ])->withInput($request->except('password'));
     }
 
     public function panitia_index()
@@ -207,8 +206,9 @@ class LoginController extends Controller
     public function testConnection()
     {
         try {
-            DB::connection('puksi')->getPdo();
-            echo "Koneksi ke database kedua berhasil.";
+            // DB::connection('puksi')->getPdo();
+            dd(DB::connection('puksi')->table("pwd")->get() );
+            // echo "Koneksi ke database kedua berhasil.";
         } catch (\Exception $e) {
             die("Tidak dapat terkoneksi ke database kedua: " . $e->getMessage());
         }

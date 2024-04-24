@@ -27,6 +27,13 @@ class KknController extends Controller
         return view('panitia.kkn-baru', compact('jenis_kkns'));
     }
 
+    public function buat()
+    {
+        $jenis_kkns = JenisKkn::all();
+        // return view('panitia.kkn', compact('jenis_kkns'));
+        // return view('panitia.kkn-edit', compact('jenis_kkns'));
+    }
+
     public function store(Request $request)
     {
         // Validasi input
@@ -57,6 +64,52 @@ class KknController extends Controller
 
         // Redirect dengan pesan sukses
         return redirect()->route('dashboard')->with('success', 'KKN baru berhasil ditambahkan.');
+    }
+
+    public function edit($id)
+    {
+        $kkns = Periode::findOrFail($id);
+        $jenis_kkns = JenisKkn::all();
+        return view('panitia.kkn-edit', compact('kkns', 'jenis_kkns'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required|min:3',
+            'harga' => 'required|numeric|digits_between:1,6',
+            'stok' => 'required|numeric',
+            'jumlah_per_satuan' => 'numeric',
+            // 'gambar' => 'required|max:5000'
+        ]);
+
+        $kkns = Periode::findOrFail($id);
+
+        $kkns->update([
+            "nama" => $request->nama,
+            'promo_id' => $request->promo_id,
+            "harga" => $request->harga,
+            "stok" => $request->stok,
+            "satuan" => $request->satuan,
+            "jumlah_per_satuan" => $request->jumlah_per_satuan,
+            "harga_promo" => $request->harga_promo,
+            "keterangan" => $request->keterangan,
+            // "gambar" => asset('/gambar' . $kkns->gambar),
+        ]);
+
+        $kkns->save();
+
+        if ($request->hasFile("gambar")) {
+            $files = $request->file("gambar");
+            foreach ($files as $file) {
+                $imageName = time() . "_" . $file->getClientOriginalName();
+                $request["kkns_id"] = $id;
+                $request["path_image"] = asset('uploads/' . $imageName);
+                $file->move($this->path_file("/uploads"), $imageName);
+                Image::create($request->all());
+            }
+        }
+        return redirect('/dashboard')->with('sukses', 'Data berhasil diupdate');
     }
 
     public function add_jenis_kkn(Request $request)

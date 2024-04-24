@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kkn;
+use App\Models\Dosen;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 
-class MahasiswaController extends Controller
+class DosenController extends Controller
 {
     public function index()
     {
-        // dd(session()->all());
         $kkns = Periode::where('status', '1')->orderBy('id', 'desc')->get();
-        return view('mahasiswa.beranda', compact('kkns'));
+        $dosen = Dosen::all();
+        return view('dosen.beranda', compact('kkns', 'dosen'));
     }
 
     public function create()

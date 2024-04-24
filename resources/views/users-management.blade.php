@@ -47,9 +47,9 @@
                                         <th
                                             class="text-left text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
                                             Nama</th>
-                                        <th
+                                        {{-- <th
                                             class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
-                                            Level</th>
+                                            Level</th> --}}
                                         <th
                                             class="text-center text-uppercase font-weight-bold bg-transparent border-bottom text-secondary">
                                             Keterangan</th>
@@ -66,7 +66,7 @@
                                     <tr>
                                         <td class="align-middle bg-transparent border-bottom">{{ $user->nip }}</td>
                                         <td class="align-middle bg-transparent border-bottom">{{ $user->nama }}</td>
-                                        <td class="align-middle bg-transparent border-bottom">{{ $user->level }}</td>
+                                        {{-- <td class="align-middle bg-transparent border-bottom">{{ $user->level }}</td> --}}
                                         <td class="align-middle bg-transparent border-bottom">{{ $user->keterangan }}</td>
                                         <td class="align-middle bg-transparent border-bottom">{{ $user->nohp }}</td>
                                         <td class="text-center align-middle bg-transparent border-bottom">

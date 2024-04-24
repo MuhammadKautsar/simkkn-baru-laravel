@@ -43,7 +43,7 @@
                                         </div>
                                         <label>NIP / Kode PTN</label>
                                         <div class="mb-3">
-                                            <input type="text" id="nip" name="nip" class="form-control"
+                                            <input type="number" id="nip" name="nip" class="form-control"
                                                 placeholder="Masukkan NIP / Kode PTN"
                                                 aria-label="NIP/Kode PTN" aria-describedby="nip-addon">
                                         </div>

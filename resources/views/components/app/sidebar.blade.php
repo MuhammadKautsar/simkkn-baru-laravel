@@ -4,6 +4,7 @@
             aria-hidden="true" id="iconSidenav"></i>
         <a class="navbar-brand d-flex align-items-center m-0"
             href=" https://demos.creative-tim.com/corporate-ui-dashboard/pages/dashboard.html " target="_blank">
+            <img src="{{ asset('assets/img/favicon.png') }}" class="avatar avatar-sm" alt="logo" />&nbsp;&nbsp;
             <span class="font-weight-bold text-lg">KKN USK</span>
         </a>
     </div>
@@ -38,7 +39,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link  {{ is_current_route('tables') ? 'active' : '' }}" href="{{ route('tables') }}">
+                <a class="nav-link  {{ is_current_route('berkas') ? 'active' : '' }}" href="{{ route('berkas') }}">
                     <div
                         class="icon icon-shape icon-sm px-0 text-center d-flex align-items-center justify-content-center">
                         <!-- <svg width="30px" height="30px" viewBox="0 0 48 48" version="1.1"
@@ -64,7 +65,7 @@
                         </svg> -->
                         <i class="fas fa-file"></i>
                     </div>
-                    <span class="nav-link-text ms-1 small">Berkas</span>
+                    <span class="nav-link-text ms-1 small">Pengumuman dan Berkas</span>
                 </a>
             </li>
             <li class="nav-item">

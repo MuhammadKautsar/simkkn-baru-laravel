@@ -34,16 +34,16 @@
                                         @csrf
                                         <label>Login sebagai:</label>
                                         <div class="mb-3">
-                                            <select name="user_type" id="user_type" class="form-select">
+                                            <select name="level" id="level" class="form-select">
                                                 <option disabled selected>Pilih Tipe User</option>
-                                                <option value="admin">Mahasiswa USK</option>
-                                                <option value="user">Dosen (DPL/Korcam)</option>
-                                                <option value="user">Mahasiswa Non USK</option>
+                                                <option value="mahasiswa">Mahasiswa USK</option>
+                                                <option value="dosen">Dosen (DPL/Korcam)</option>
+                                                <option value="mhs_non_usk">Mahasiswa Non USK</option>
                                             </select>
                                         </div>
                                         <label>NPM / NIP</label>
                                         <div class="mb-3">
-                                            <input type="text" id="nim13" name="nim13" class="form-control"
+                                            <input type="number" id="username" name="username" class="form-control"
                                                 placeholder="Masukkan NPM / NIP"
                                                 aria-label="NPM" aria-describedby="npm-addon">
                                         </div>
